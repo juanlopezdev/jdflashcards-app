@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import IconLoader from "../icons/loader";
+import IconLoader from "../icons/Loader";
 
 const Button = ({
   children,
@@ -87,7 +87,7 @@ Button.defaultProps = {
   buttonType: "button",
   buttonStyle: "primary",
   className: "",
-  disabled: true,
+  disabled: false,
   loadingText: "Cargando...",
 };
 

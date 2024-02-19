@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "../components/button/Button";
-import IconLogin from "../components/icons/login";
+import IconLogin from "../components/icons/Login";
 import Textfield from "../components/input/Textfield";
 import { login } from "../services/authService";
 import constants from "../utils/constants";
@@ -43,8 +43,9 @@ const ViewLogin = () => {
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
       setSubmitting(true);
       try {
-        const { token } = await login(values.email, values.password);
-        localStorage.setItem(constants.TOKEN_NAME, token);
+        const { token, user } = await login(values.email, values.password);
+        localStorage.setItem(constants.KEY_TOKEN_NAME, token);
+        localStorage.setItem(constants.KEY_USER_DATA, JSON.stringify(user));
         navigate("/flashcards");
       } catch (error) {
         setFieldError("server", "Correo electrónico o contraseña inválidos");

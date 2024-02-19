@@ -1,6 +1,7 @@
 const constants = {
   API_URL: 'http://localhost/api',
-  TOKEN_NAME: 'jdfc-token',
+  KEY_TOKEN_NAME: 'jdfc-token',
+  KEY_USER_DATA: 'jdfc-user'
 };
 
 export default constants;
