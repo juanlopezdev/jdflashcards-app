@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "../components/button/Button";
 import IconLogin from "../components/icons/login";
 import Textfield from "../components/input/Textfield";
 import { login } from "../services/authService";
+import constants from "../utils/constants";
 
 const ViewLogin = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.body.classList.add(
       "bg-gradient-to-r",
@@ -40,7 +44,8 @@ const ViewLogin = () => {
       setSubmitting(true);
       try {
         const { token } = await login(values.email, values.password);
-        localStorage.setItem("jdfc-token", token);
+        localStorage.setItem(constants.TOKEN_NAME, token);
+        navigate("/flashcards");
       } catch (error) {
         setFieldError("server", "Correo electrónico o contraseña inválidos");
       } finally {

@@ -1,4 +1,6 @@
-const API_URL = "http://localhost/api";
+import constants from "../utils/constants";
+
+const API_URL = constants.API_URL;
 
 const login = async (email, password) => {
   try {
