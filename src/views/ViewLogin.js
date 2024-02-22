@@ -7,6 +7,7 @@ import IconLogin from "../components/icons/Login";
 import Textfield from "../components/input/Textfield";
 import { login } from "../services/authService";
 import constants from "../utils/constants";
+import InfoMessage from "../components/messages/InfoMessage";
 
 const ViewLogin = () => {
   const navigate = useNavigate();
@@ -74,9 +75,7 @@ const ViewLogin = () => {
           onSubmit={formik.handleSubmit}
         >
           {formik.errors.server && (
-            <div className="p-4 mb-2 rounded bg-red-500 text-white text-sm">
-              {formik.errors.server}
-            </div>
+            <InfoMessage message={formik.errors.server} type="error" />
           )}
 
           <h1 className="text-2xl font-bold mb-1">JD Flashcards</h1>

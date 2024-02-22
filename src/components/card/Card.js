@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CardDeck = ({ title, onClick }) => {
+const Card = ({ title, onClick }) => {
   return (
     <article className="bg-white shadow-md rounded p-4" onClick={onClick}>
       <b>{title}</b>
@@ -9,14 +9,14 @@ const CardDeck = ({ title, onClick }) => {
   );
 };
 
-CardDeck.propTypes = {
+Card.propTypes = {
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
-CardDeck.defaultProps = {
+Card.defaultProps = {
   title: "Sin título",
   onClick: () => {},
 };
 
-export default CardDeck;
+export default Card;

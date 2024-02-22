@@ -5,6 +5,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import ViewHome from "./views/ViewHome";
 import ViewFlashCards from "./views/ViewFlashCards";
 import ViewLogin from "./views/ViewLogin";
+import ViewCreateSubject from "./views/ViewCreateSubject";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route exact path="/flashcards" element={<ViewFlashCards />} />
+          <Route exact path="/create-subject" element={<ViewCreateSubject />} />
         </Route>
         <Route exact path="/" element={<ViewHome />}/>
         <Route exact path="/login" element={<ViewLogin />} />

@@ -20,6 +20,10 @@ const Button = ({
     secondary:
       "bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 active:bg-gray-800",
     tertiary: "bg-black hover:bg-slate-900 focus:bg-slate-950 active:bg-black",
+    circleTertiary:
+      "inline-block bg-black hover:bg-slate-900 focus:bg-slate-950 active:bg-black rounded-full",
+    circleSuccess:
+      "inline-block bg-green-500 hover:bg-green-600 focus:bg-green-700 active:bg-green-800 rounded-full",
   };
 
   const tailwindClass = `
@@ -74,7 +78,12 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
   buttonType: PropTypes.oneOf(["button", "submit", "reset", "link"]),
-  buttonStyle: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+  buttonStyle: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "circleSuccess",
+  ]),
   className: PropTypes.string,
   href: PropTypes.string,
   disabled: PropTypes.bool,
