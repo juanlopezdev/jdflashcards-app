@@ -20,10 +20,15 @@ const Button = ({
     secondary:
       "bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 active:bg-gray-800",
     tertiary: "bg-black hover:bg-slate-900 focus:bg-slate-950 active:bg-black",
+    danger: "bg-red-500 hover:bg-red-600 focus:bg-red-700 active:bg-red-800",
+    success:
+      "bg-green-500 hover:bg-green-600 focus:bg-green-700 active:bg-green-800",
     circleTertiary:
       "inline-block bg-black hover:bg-slate-900 focus:bg-slate-950 active:bg-black rounded-full",
     circleSuccess:
       "inline-block bg-green-500 hover:bg-green-600 focus:bg-green-700 active:bg-green-800 rounded-full",
+    circlePrimary:
+      "inline-block bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 active:bg-blue-800 rounded-full",
   };
 
   const tailwindClass = `
@@ -82,7 +87,10 @@ Button.propTypes = {
     "primary",
     "secondary",
     "tertiary",
+    "danger",
     "circleSuccess",
+    "circleTertiary",
+    "circlePrimary"
   ]),
   className: PropTypes.string,
   href: PropTypes.string,

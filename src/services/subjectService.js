@@ -2,6 +2,28 @@ import constants from "../utils/constants";
 
 const API_URL = constants.API_URL;
 
+const getSubject = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/subjects/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          constants.KEY_TOKEN_NAME
+        )}`,
+      },
+    });
+
+    if (!response.ok) throw new Error("Error al obtener la asignatura");
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 const getSubjectsByUserLogged = async () => {
   try {
     const response = await fetch(`${API_URL}/user/subjects`, {
@@ -45,8 +67,6 @@ const saveSubject = async (subject) => {
     console.error(error);
     throw error;
   }
-}
+};
 
-
-
-export { getSubjectsByUserLogged, saveSubject };
+export { getSubject, getSubjectsByUserLogged, saveSubject };
