@@ -2,7 +2,7 @@
 
 JD Flashcards es una aplicación de aprendizaje basado en tarjetas de memoria y repetición espaciada. Esta aplicación nace de la necesidad personal de aprender palabras en ingles 🗽 con tarjetas de memoria y tambien explorar 🔍 la librería ReactJS. Digamos que mientras voy construyendo 🧑‍💻 esta app para mi uso personal, voy aprendiendo React 👨‍🎓 y su ecosistema, a ello añadimos ciertas mejoras y nuevas funcionalidades con el tiempo :shipit:.
 
-El repositorio actual alberga la parte frontend de la aplicación, la cual ha sido implementada utilizando React para la lógica de la interfaz y TailwindCSS para el diseño. Además, interactúa con un API Rest desarrollado en Laravel, ubicado en un repositorio separado, encargado de gestionar la lógica del backend
+El repositorio actual alberga la parte frontend de la aplicación, la cual ha sido implementada utilizando React para la lógica de la interfaz y TailwindCSS para el diseño. Además, interactúa con un API Rest desarrollado en Laravel, ubicado en un [repositorio separado](https://github.com/juanlopezdev/jdflashcards-api), encargado de gestionar la lógica del backend
 
 ## Comenzando con Create React App
 

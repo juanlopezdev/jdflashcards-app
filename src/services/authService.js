@@ -35,6 +35,7 @@ const logout = async () => {
     if (!response.ok) throw new Error("Error al cerrar sesión");
 
     localStorage.removeItem(constants.KEY_TOKEN_NAME);
+    localStorage.removeItem(constants.KEY_USER_DATA);
     window.location.href = "/";
   } catch (error) {
     console.error(error);
