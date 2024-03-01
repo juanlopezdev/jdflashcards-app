@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,22 +11,6 @@ import InfoMessage from "../components/messages/InfoMessage";
 
 const ViewLogin = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    document.body.classList.add(
-      "bg-gradient-to-r",
-      "from-sky-500",
-      "to-indigo-500"
-    );
-
-    return () => {
-      document.body.classList.remove(
-        "bg-gradient-to-r",
-        "from-sky-500",
-        "to-indigo-500"
-      );
-    };
-  });
 
   const formik = useFormik({
     initialValues: {

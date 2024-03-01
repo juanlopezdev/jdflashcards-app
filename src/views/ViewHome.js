@@ -1,24 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "../components/button/Button";
 
 const ViewHome = () => {
-
-  useEffect(() => {
-    document.body.classList.add(
-      "bg-gradient-to-r",
-      "from-sky-500",
-      "to-indigo-500"
-    );
-
-    return () => {
-      document.body.classList.remove(
-        "bg-gradient-to-r",
-        "from-sky-500",
-        "to-indigo-500"
-      );
-    };
-  });
-
   return (
     <section className="container grid place-items-center h-screen px-4 mx-auto">
       <div>

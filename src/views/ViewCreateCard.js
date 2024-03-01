@@ -21,12 +21,6 @@ const ViewCreateCard = () => {
   const subjectId = location.state?.subjectId;
 
   useEffect(() => {
-    document.body.classList.add(
-      "bg-gradient-to-r",
-      "from-sky-500",
-      "to-indigo-500"
-    );
-
     const fetchSubjects = async () => {
       try {
         const data = await getSubjectsByUserLogged();
@@ -39,14 +33,6 @@ const ViewCreateCard = () => {
     };
 
     fetchSubjects();
-
-    return () => {
-      document.body.classList.remove(
-        "bg-gradient-to-r",
-        "from-sky-500",
-        "to-indigo-500"
-      );
-    };
   }, []);
 
   const formik = useFormik({

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import imgDeckCards from "../assets/images/deck-cards-jdflashcards.png";
 import Header from "../components/header/Header";
 import ListSubjects from "../components/listSubjects/ListSubjects";
@@ -7,22 +7,6 @@ import IconPlus from "../components/icons/Plus";
 import Button from "../components/button/Button";
 
 const ViewFlashCards = () => {
-  useEffect(() => {
-    document.body.classList.add(
-      "bg-gradient-to-r",
-      "from-sky-500",
-      "to-indigo-500"
-    );
-
-    return () => {
-      document.body.classList.remove(
-        "bg-gradient-to-r",
-        "from-sky-500",
-        "to-indigo-500"
-      );
-    };
-  });
-
   return (
     <div>
       <Header />

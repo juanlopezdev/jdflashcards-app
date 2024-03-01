@@ -24,21 +24,7 @@ const ViewSubjectCards = () => {
       }
     };
 
-    document.body.classList.add(
-      "bg-gradient-to-r",
-      "from-sky-500",
-      "to-indigo-500"
-    );
-
     fetchSubject();
-
-    return () => {
-      document.body.classList.remove(
-        "bg-gradient-to-r",
-        "from-sky-500",
-        "to-indigo-500"
-      );
-    };
   }, [subjectId]);
 
   const handleCreateCardClick = () => {
