@@ -15,4 +15,9 @@ PageTitle.propTypes = {
   image: PropTypes.string,
 };
 
+PageTitle.defaultProps = {
+  title: "",
+  image: null,
+};
+
 export default PageTitle;

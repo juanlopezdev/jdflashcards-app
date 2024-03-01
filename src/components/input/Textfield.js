@@ -11,7 +11,10 @@ const Textfield = ({
   onBlur,
   value,
   error,
+  multiline,
 }) => {
+  const InputOrTextarea = multiline ? "textarea" : "input";
+
   return (
     <div>
       {label && (
@@ -22,7 +25,7 @@ const Textfield = ({
           {label}
         </label>
       )}
-      <input
+      <InputOrTextarea
         type={type}
         id={id}
         name={name}
@@ -49,13 +52,15 @@ Textfield.propTypes = {
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   value: PropTypes.string,
-  error: PropTypes.string
+  error: PropTypes.string,
+  multiline: PropTypes.bool,
 };
 
 Textfield.defaultProps = {
   type: "text",
+  multiline: false,
   onChange: () => {},
-  onBlur: () => {}
+  onBlur: () => {},
 };
 
 export default Textfield;

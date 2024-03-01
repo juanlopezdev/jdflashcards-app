@@ -24,4 +24,27 @@ const getCardsBySubject = async (subjectId) => {
   }
 };
 
-export { getCardsBySubject };
+const saveCard = async (subject) => {
+  try {
+    const response = await fetch(`${API_URL}/cards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          constants.KEY_TOKEN_NAME
+        )}`,
+      },
+      body: JSON.stringify(subject),
+    });
+
+    if (!response.ok) throw new Error("Error al guardar la asignatura");
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export { saveCard, getCardsBySubject };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import Button from "../components/button/Button";
 import IconHome from "../components/icons/Home";
@@ -10,6 +10,7 @@ import { getSubject } from "../services/subjectService";
 import IconPlay from "../components/icons/Play";
 
 const ViewSubjectCards = () => {
+  const navigate = useNavigate();
   const { subjectId } = useParams();
   const [subject, setSubject] = useState({});
 
@@ -40,21 +41,24 @@ const ViewSubjectCards = () => {
     };
   }, [subjectId]);
 
+  const handleCreateCardClick = () => {
+    navigate("/create-card", { state: { subjectId } });
+  };
+
   return (
     <div>
       <Header />
 
       <div className="container mx-auto px-4 pb-32">
         <PageTitle title={subject.name} />
-        <ListCards subjectId={subjectId} />
+        <ListCards subjectId={+subjectId} />
       </div>
 
       <div className="fixed inset-x-0 bottom-0 pb-5 flex justify-center items-center">
         <Button
-          buttonType="link"
           buttonStyle="circleSuccess"
           className="px-5 py-5"
-          href="/create-subject"
+          onClick={handleCreateCardClick}
         >
           <IconPlus />
         </Button>
@@ -68,10 +72,7 @@ const ViewSubjectCards = () => {
           <IconHome />
         </Button>
 
-        <Button
-          buttonStyle="circlePrimary"
-          className="px-5 py-5 ml-2"
-        >
+        <Button buttonStyle="circlePrimary" className="px-5 py-5 ml-2">
           <IconPlay />
         </Button>
       </div>
