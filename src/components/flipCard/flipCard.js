@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "../button/Button";
+import { deleteCard } from "../../services/cardService";
 
-const FlipCard = ({ id, title, content, canEdit, canDelete }) => {
+const FlipCard = ({
+  id,
+  title,
+  content,
+  canEdit,
+  canDelete,
+  onDeleteSuccess,
+}) => {
   const navigate = useNavigate();
   const [shouldFlip, setShouldFlip] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleCardClick = () => {
     setShouldFlip(!shouldFlip);
@@ -13,6 +22,22 @@ const FlipCard = ({ id, title, content, canEdit, canDelete }) => {
 
   const handleEditClick = () => {
     navigate(`/edit-card/${id}`);
+  };
+
+  const handleDeleteClick = async () => {
+    if (window.confirm("¿Está seguro de eliminar la tarjeta?") === false)
+      return;
+
+    setIsDeleting(true);
+    try {
+      await deleteCard(id);
+      onDeleteSuccess(true, id);
+    } catch (error) {
+      console.error(error);
+      onDeleteSuccess(false, id);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -37,7 +62,15 @@ const FlipCard = ({ id, title, content, canEdit, canDelete }) => {
 
       <div className="flex justify-center gap-4">
         {canEdit && <Button onClick={handleEditClick}>Editar</Button>}
-        {canDelete && <Button buttonStyle="danger">Eliminar</Button>}
+        {canDelete && (
+          <Button
+            buttonStyle="danger"
+            onClick={handleDeleteClick}
+            loading={isDeleting}
+          >
+            Eliminar
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -49,6 +82,7 @@ FlipCard.propTypes = {
   content: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
+  onDeleteSuccess: PropTypes.func,
 };
 
 FlipCard.defaultProps = {

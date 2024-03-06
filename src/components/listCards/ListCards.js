@@ -19,6 +19,11 @@ const ListCards = ({ subjectId }) => {
     fetchCards();
   }, [subjectId]);
 
+  const handleCardDelete = (isSuccessful, cardId) => {
+    if (!isSuccessful) return;
+    setCards(cards.filter((card) => card.id !== cardId));
+  };
+
   return (
     <section>
       {cards.length === 0 ? (
@@ -35,6 +40,7 @@ const ListCards = ({ subjectId }) => {
               content={card.answer}
               canDelete={true}
               canEdit={true}
+              onDeleteSuccess={handleCardDelete}
             />
           ))}
         </div>

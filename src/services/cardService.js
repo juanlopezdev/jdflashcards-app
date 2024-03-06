@@ -92,4 +92,27 @@ const updateCard = async (card) => {
   }
 };
 
-export { getCard, getCardsBySubject, saveCard, updateCard };
+const deleteCard = async (cardId) => {
+  try {
+    const response = await fetch(`${API_URL}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          constants.KEY_TOKEN_NAME
+        )}`,
+      },
+    });
+
+    if (!response.ok) throw new Error("Error al eliminar la tarjeta");
+
+    await response;
+    // const data = await response.json();
+    // return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export { deleteCard, getCard, getCardsBySubject, saveCard, updateCard };
