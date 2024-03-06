@@ -30,6 +30,7 @@ const ListCards = ({ subjectId }) => {
           {cards.map((card) => (
             <FlipCard
               key={card.id}
+              id={card.id}
               title={card.question}
               content={card.answer}
               canDelete={true}

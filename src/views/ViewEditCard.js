@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Header from "../components/header/Header";
@@ -7,42 +7,20 @@ import PageTitle from "../components/pageTitle/PageTitle";
 import Textfield from "../components/input/Textfield";
 import Button from "../components/button/Button";
 import InfoMessage from "../components/messages/InfoMessage";
-import Select from "../components/select/Select";
-import { saveCard } from "../services/cardService";
-import { getSubjectsByUserLogged } from "../services/subjectService";
-import constants from "../utils/constants";
 import IconClose from "../components/icons/Close";
+import { getCard, updateCard } from "../services/cardService";
 
-const ViewCreateCard = () => {
-  const location = useLocation();
+const ViewEditCard = () => {
   const navigate = useNavigate();
-  const [subjectsOptions, setSubjectsOptions] = useState([]);
-  // Accede al ID de la asignatura desde el estado de navegación
-  const subjectId = location.state?.subjectId;
-
-  useEffect(() => {
-    const fetchSubjects = async () => {
-      try {
-        const data = await getSubjectsByUserLogged();
-        setSubjectsOptions(
-          data.map((subject) => ({ value: subject.id, label: subject.name }))
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchSubjects();
-  }, []);
+  const { cardId } = useParams();
+  const [card, setCard] = useState(null);
 
   const formik = useFormik({
     initialValues: {
-      subject_id: subjectId || "",
       question: "",
       answer: "",
     },
     validationSchema: Yup.object({
-      subject_id: Yup.string().required("La asignatura es requerida"),
       question: Yup.string()
         .required("La pregunta es requerida")
         .max(255, "La pregunta no debe exceder los 255 caracteres"),
@@ -53,56 +31,55 @@ const ViewCreateCard = () => {
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
       setSubmitting(true);
       try {
-        const user = JSON.parse(localStorage.getItem(constants.KEY_USER_DATA));
-        const savedCard = await saveCard({ ...values, user_id: user.id });
-        console.log(savedCard);
-        navigate(`/subject/${values.subject_id}/cards`);
+        await updateCard({
+          ...values,
+          id: cardId,
+        });
+        navigate(`/subject/${card.subject_id}/cards`);
       } catch (error) {
         console.error(error);
-        setFieldError("server", "Error al registrar una tarjeta");
+        setFieldError("server", "Error al actualizar una tarjeta");
       } finally {
         setSubmitting(false);
       }
     },
   });
 
+  useEffect(() => {
+    const fetchCard = async () => {
+      try {
+        const data = await getCard(cardId);
+        setCard(data);
+
+        formik.resetForm({
+          values: { question: data.question, answer: data.answer },
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCard();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardId]);
+
   const handleCloseClick = () => {
-    navigate(`/subject/${subjectId}/cards`);
-  };
+    navigate(`/subject/${card.subject_id}/cards`);
+  }
 
   return (
     <div>
       <Header />
 
       <div className="container mx-auto px-4">
-        <PageTitle title="Crear tarjeta" />
+        <PageTitle title="Editar tarjeta" />
 
         <div className="w-full rounded-md bg-white p-4">
           <form onSubmit={formik.handleSubmit}>
             {formik.errors.server && (
               <InfoMessage message={formik.errors.server} type="error" />
             )}
-
-            <p className="mb-4">
-              Crea una tarjeta para ✍ aprender y practicar
-            </p>
-
-            <div className="mb-4">
-              <Select
-                label="Asignatura"
-                id="subject_id"
-                name="subject_id"
-                options={subjectsOptions}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.subject_id}
-                error={
-                  formik.touched.subject_id && formik.errors.subject_id
-                    ? formik.errors.subject_id
-                    : null
-                }
-              />
-            </div>
 
             <div className="mb-4">
               <Textfield
@@ -155,8 +132,8 @@ const ViewCreateCard = () => {
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 pb-5 text-center">
-        <Button buttonStyle="circleTertiary" className="px-5 py-5" onClick={handleCloseClick} >
+      <div className="fixed inset-x-0 bottom-0 pb-5 flex justify-center items-center">
+        <Button buttonStyle="circleTertiary" className="px-5 py-5 ml-2" onClick={handleCloseClick}>
           <IconClose />
         </Button>
       </div>
@@ -164,4 +141,4 @@ const ViewCreateCard = () => {
   );
 };
 
-export default ViewCreateCard;
+export default ViewEditCard;

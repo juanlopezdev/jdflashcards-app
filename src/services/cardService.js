@@ -24,7 +24,29 @@ const getCardsBySubject = async (subjectId) => {
   }
 };
 
-const saveCard = async (subject) => {
+const getCard = async (cardId) => {
+  try {
+    const response = await fetch(`${API_URL}/cards/${cardId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          constants.KEY_TOKEN_NAME
+        )}`,
+      },
+    });
+
+    if (!response.ok) throw new Error("Error al obtener la tarjeta");
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const saveCard = async (card) => {
   try {
     const response = await fetch(`${API_URL}/cards`, {
       method: "POST",
@@ -34,7 +56,7 @@ const saveCard = async (subject) => {
           constants.KEY_TOKEN_NAME
         )}`,
       },
-      body: JSON.stringify(subject),
+      body: JSON.stringify(card),
     });
 
     if (!response.ok) throw new Error("Error al guardar la asignatura");
@@ -47,4 +69,27 @@ const saveCard = async (subject) => {
   }
 };
 
-export { saveCard, getCardsBySubject };
+const updateCard = async (card) => {
+  try {
+    const response = await fetch(`${API_URL}/cards/${card.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(
+          constants.KEY_TOKEN_NAME
+        )}`,
+      },
+      body: JSON.stringify(card),
+    });
+
+    if (!response.ok) throw new Error("Error al actualizar la tarjeta");
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export { getCard, getCardsBySubject, saveCard, updateCard };

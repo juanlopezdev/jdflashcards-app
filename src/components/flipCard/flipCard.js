@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "../button/Button";
 
-const FlipCard = ({ title, content, canEdit, canDelete }) => {
+const FlipCard = ({ id, title, content, canEdit, canDelete }) => {
+  const navigate = useNavigate();
   const [shouldFlip, setShouldFlip] = useState(false);
 
   const handleCardClick = () => {
     setShouldFlip(!shouldFlip);
+  };
+
+  const handleEditClick = () => {
+    navigate(`/edit-card/${id}`);
   };
 
   return (
@@ -30,7 +36,7 @@ const FlipCard = ({ title, content, canEdit, canDelete }) => {
       </article>
 
       <div className="flex justify-center gap-4">
-        {canEdit && <Button>Editar</Button>}
+        {canEdit && <Button onClick={handleEditClick}>Editar</Button>}
         {canDelete && <Button buttonStyle="danger">Eliminar</Button>}
       </div>
     </div>
@@ -38,6 +44,7 @@ const FlipCard = ({ title, content, canEdit, canDelete }) => {
 };
 
 FlipCard.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,

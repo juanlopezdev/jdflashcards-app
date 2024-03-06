@@ -8,6 +8,7 @@ import ViewLogin from "./views/ViewLogin";
 import ViewCreateSubject from "./views/ViewCreateSubject";
 import ViewSubjectCards from "./views/viewSubjectCards";
 import ViewCreateCard from "./views/ViewCreateCard";
+import ViewEditCard from "./views/ViewEditCard";
 
 function App() {
   useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
             element={<ViewSubjectCards />}
           />
           <Route exact path="/create-card" element={<ViewCreateCard />} />
+          <Route exact path="/edit-card/:cardId" element={<ViewEditCard />} />
         </Route>
         <Route exact path="/" element={<ViewHome />} />
         <Route exact path="/login" element={<ViewLogin />} />
