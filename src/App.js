@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PrivateRoutes from "./utils/PrivateRoutes";
-import constants from "./utils/constants";
 import ViewHome from "./views/ViewHome";
 import ViewFlashCards from "./views/ViewFlashCards";
 import ViewLogin from "./views/ViewLogin";
@@ -29,7 +28,8 @@ function App() {
   }, []);
 
   return (
-    <Router basename={`${constants.APP_BASENAME}`}>
+    // <Router basename={`${constants.APP_BASENAME}`}> (Only with BrowserRouter)
+    <Router>
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route exact path="/flashcards" element={<ViewFlashCards />} />
